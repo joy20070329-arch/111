@@ -141,6 +141,7 @@
       position: relative;
       min-height: 240px;
       overflow: hidden;
+      background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
     }
     .spot-img img {
       width: 100%;
@@ -148,6 +149,22 @@
       object-fit: cover;
       display: block;
       transition: transform .5s ease;
+      /* 若圖片載入失敗，隱藏破圖 icon */
+      color: transparent;
+    }
+    /* 圖片載入失敗時顯示景點名稱 */
+    .spot-img img::after {
+      content: attr(alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #2d6a4f, #1a1a2e);
+      color: rgba(255,255,255,.7);
+      font-size: 1.2rem;
+      font-family: 'Noto Serif TC', serif;
+      letter-spacing: .1em;
     }
     .spot-card:hover .spot-img img {
       transform: scale(1.05);
@@ -323,8 +340,40 @@
       <!-- 景點 1 -->
       <article class="spot-card">
         <div class="spot-img">
-          <img src="https://www.taiwan.net.tw/att/1/big_scenic_spots/pic_A12-00299_8.jpg"
-               alt="日月潭">
+          <!-- 日月潭 SVG 插圖 -->
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <defs>
+              <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a3a5c"/>
+                <stop offset="100%" stop-color="#4a90d9"/>
+              </linearGradient>
+              <linearGradient id="lake1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2980b9"/>
+                <stop offset="100%" stop-color="#1a5276"/>
+              </linearGradient>
+            </defs>
+            <!-- 天空 -->
+            <rect width="400" height="260" fill="url(#sky1)"/>
+            <!-- 遠山 -->
+            <polygon points="0,160 60,90 120,130 180,70 240,110 300,60 360,100 400,80 400,170 0,170" fill="#1a4a2e" opacity=".9"/>
+            <polygon points="0,170 80,120 160,150 220,100 300,140 400,110 400,180 0,180" fill="#2d6a4f" opacity=".85"/>
+            <!-- 湖面 -->
+            <ellipse cx="200" cy="210" rx="180" ry="55" fill="url(#lake1)" opacity=".95"/>
+            <!-- 水面倒影光線 -->
+            <ellipse cx="200" cy="215" rx="90" ry="18" fill="rgba(255,255,255,.12)"/>
+            <ellipse cx="180" cy="222" rx="50" ry="8" fill="rgba(255,255,255,.08)"/>
+            <!-- 月亮 -->
+            <circle cx="330" cy="45" r="22" fill="#f8e36d" opacity=".9"/>
+            <circle cx="340" cy="38" r="17" fill="#1a3a5c"/>
+            <!-- 小島 -->
+            <ellipse cx="200" cy="192" rx="30" ry="10" fill="#2d6a4f"/>
+            <polygon points="190,192 200,162 210,192" fill="#1a4a2e"/>
+            <!-- 小船 -->
+            <ellipse cx="120" cy="208" rx="18" ry="5" fill="#8b4513" opacity=".8"/>
+            <line x1="120" y1="208" x2="120" y2="192" stroke="#5d3a1a" stroke-width="1.5"/>
+            <!-- 文字 -->
+            <text x="200" y="250" text-anchor="middle" font-family="serif" font-size="14" fill="rgba(255,255,255,.7)" letter-spacing="3">日月潭</text>
+          </svg>
           <span class="tag">南投縣</span>
         </div>
         <div class="spot-info">
@@ -341,8 +390,36 @@
       <!-- 景點 2 -->
       <article class="spot-card">
         <div class="spot-img">
-          <img src="https://res.klook.com/image/upload/w_750,h_469,c_fill,q_85/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/aqdwqahhnknrhh5ckui6.jpg"
-               alt="太魯閣">
+          <!-- 太魯閣 SVG 插圖 -->
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <defs>
+              <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#87CEEB"/>
+                <stop offset="100%" stop-color="#b0d8f0"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="260" fill="url(#sky2)"/>
+            <!-- 峽谷左壁 -->
+            <polygon points="0,0 120,0 80,260 0,260" fill="#7f8c8d"/>
+            <polygon points="0,0 110,0 70,260 0,260" fill="#95a5a6"/>
+            <polygon points="0,0 90,0 55,260 0,260" fill="#bdc3c7"/>
+            <!-- 峽谷右壁 -->
+            <polygon points="400,0 280,0 320,260 400,260" fill="#7f8c8d"/>
+            <polygon points="400,0 290,0 330,260 400,260" fill="#95a5a6"/>
+            <polygon points="400,0 310,0 345,260 400,260" fill="#bdc3c7"/>
+            <!-- 植被 -->
+            <polygon points="60,100 90,60 120,100" fill="#27ae60"/>
+            <polygon points="280,120 310,80 340,120" fill="#27ae60"/>
+            <polygon points="30,160 55,125 80,160" fill="#2ecc71"/>
+            <!-- 溪流 -->
+            <path d="M 130,0 Q 160,80 150,130 Q 145,180 155,260" stroke="#3498db" stroke-width="20" fill="none" opacity=".7"/>
+            <path d="M 135,0 Q 165,80 155,130 Q 150,180 160,260" stroke="#5dade2" stroke-width="8" fill="none" opacity=".5"/>
+            <!-- 步道 -->
+            <path d="M 80,260 Q 120,200 130,150 Q 140,100 160,50" stroke="#e8d5b7" stroke-width="6" fill="none" stroke-dasharray="10,5"/>
+            <!-- 文字 -->
+            <text x="200" y="140" text-anchor="middle" font-family="serif" font-size="15" fill="rgba(255,255,255,.85)" letter-spacing="2">太魯閣</text>
+            <text x="200" y="160" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,.6)" letter-spacing="1">TAROKO GORGE</text>
+          </svg>
           <span class="tag">花蓮縣</span>
         </div>
         <div class="spot-info">
@@ -359,8 +436,75 @@
       <!-- 景點 3 -->
       <article class="spot-card">
         <div class="spot-img">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Jiufen_Old_Street_in_Taiwan.jpg/1280px-Jiufen_Old_Street_in_Taiwan.jpg"
-               alt="九份老街">
+          <!-- 九份 SVG 插圖 -->
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <defs>
+              <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a1a2e"/>
+                <stop offset="60%" stop-color="#2c1654"/>
+                <stop offset="100%" stop-color="#16213e"/>
+              </linearGradient>
+              <linearGradient id="sea3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a3a5c"/>
+                <stop offset="100%" stop-color="#0d1b2a"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="260" fill="url(#sky3)"/>
+            <!-- 星星 -->
+            <circle cx="50" cy="30" r="1.5" fill="white" opacity=".8"/>
+            <circle cx="120" cy="15" r="1" fill="white" opacity=".6"/>
+            <circle cx="220" cy="25" r="1.5" fill="white" opacity=".9"/>
+            <circle cx="350" cy="20" r="1" fill="white" opacity=".7"/>
+            <circle cx="380" cy="40" r="1.5" fill="white" opacity=".5"/>
+            <!-- 海 -->
+            <rect x="0" y="190" width="400" height="70" fill="url(#sea3)"/>
+            <!-- 山坡 -->
+            <polygon points="0,260 0,120 400,80 400,260" fill="#2c2c2c"/>
+            <!-- 房屋群 -->
+            <g opacity=".95">
+              <!-- 左側建築 -->
+              <rect x="20" y="155" width="35" height="45" fill="#3d2b1f" rx="2"/>
+              <polygon points="15,155 55,155 35,135" fill="#8b0000"/>
+              <rect x="27" y="170" width="8" height="12" fill="#ffd700" opacity=".9"/>
+              <rect x="38" y="170" width="8" height="12" fill="#ffd700" opacity=".7"/>
+              <!-- 中左建築 -->
+              <rect x="70" y="140" width="40" height="55" fill="#4a3728" rx="2"/>
+              <polygon points="65,140 115,140 90,118" fill="#8b0000"/>
+              <rect x="77" y="158" width="10" height="14" fill="#ff8c00" opacity=".9"/>
+              <rect x="92" y="158" width="10" height="14" fill="#ffd700" opacity=".8"/>
+              <!-- 中央大建築 -->
+              <rect x="130" y="125" width="55" height="70" fill="#3d2b1f" rx="2"/>
+              <polygon points="124,125 190,125 157,100" fill="#9b0000"/>
+              <rect x="138" y="145" width="12" height="16" fill="#ff8c00" opacity=".95"/>
+              <rect x="155" y="145" width="12" height="16" fill="#ffd700" opacity=".9"/>
+              <rect x="168" y="145" width="12" height="16" fill="#ff8c00" opacity=".85"/>
+              <!-- 右中建築 -->
+              <rect x="200" y="135" width="45" height="60" fill="#5c3d2e" rx="2"/>
+              <polygon points="195,135 250,135 222,112" fill="#8b0000"/>
+              <rect x="207" y="155" width="11" height="15" fill="#ffd700" opacity=".9"/>
+              <rect x="222" y="155" width="11" height="15" fill="#ff8c00" opacity=".8"/>
+              <!-- 右側建築 -->
+              <rect x="260" y="148" width="38" height="50" fill="#4a3728" rx="2"/>
+              <polygon points="255,148 303,148 279,128" fill="#9b0000"/>
+              <rect x="267" y="165" width="9" height="13" fill="#ffd700" opacity=".85"/>
+              <rect x="280" y="165" width="9" height="13" fill="#ff8c00" opacity=".9"/>
+              <!-- 最右建築 -->
+              <rect x="315" y="155" width="35" height="45" fill="#3d2b1f" rx="2"/>
+              <polygon points="310,155 355,155 332,133" fill="#8b0000"/>
+              <rect x="322" y="172" width="9" height="12" fill="#ffd700" opacity=".8"/>
+            </g>
+            <!-- 紅燈籠串 -->
+            <line x1="90" y1="118" x2="157" y2="100" stroke="#8b0000" stroke-width="1"/>
+            <ellipse cx="110" cy="110" rx="5" ry="7" fill="#e74c3c"/>
+            <ellipse cx="130" cy="106" rx="5" ry="7" fill="#e74c3c"/>
+            <ellipse cx="150" cy="102" rx="5" ry="7" fill="#e74c3c"/>
+            <line x1="157" y1="100" x2="222" y2="112" stroke="#8b0000" stroke-width="1"/>
+            <ellipse cx="175" cy="104" rx="5" ry="7" fill="#e74c3c"/>
+            <ellipse cx="198" cy="108" rx="5" ry="7" fill="#e74c3c"/>
+            <!-- 海面倒影 -->
+            <rect x="0" y="190" width="400" height="4" fill="rgba(255,140,0,.15)"/>
+            <text x="200" y="250" text-anchor="middle" font-family="serif" font-size="14" fill="rgba(255,200,100,.7)" letter-spacing="3">九份老街</text>
+          </svg>
           <span class="tag">新北市</span>
         </div>
         <div class="spot-info">
@@ -377,8 +521,61 @@
       <!-- 景點 4 -->
       <article class="spot-card">
         <div class="spot-img">
-          <img src="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_767865031-1.jpg"
-               alt="墾丁">
+          <!-- 墾丁 SVG 插圖 -->
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <defs>
+              <linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0077b6"/>
+                <stop offset="100%" stop-color="#48cae4"/>
+              </linearGradient>
+              <linearGradient id="sea4" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0096c7"/>
+                <stop offset="100%" stop-color="#023e8a"/>
+              </linearGradient>
+              <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f9e4b7"/>
+                <stop offset="100%" stop-color="#e8c97a"/>
+              </linearGradient>
+            </defs>
+            <!-- 天空 -->
+            <rect width="400" height="260" fill="url(#sky4)"/>
+            <!-- 白雲 -->
+            <ellipse cx="80" cy="50" rx="45" ry="20" fill="white" opacity=".85"/>
+            <ellipse cx="110" cy="42" rx="30" ry="18" fill="white" opacity=".85"/>
+            <ellipse cx="55" cy="55" rx="25" ry="14" fill="white" opacity=".85"/>
+            <ellipse cx="300" cy="35" rx="50" ry="18" fill="white" opacity=".8"/>
+            <ellipse cx="335" cy="28" rx="35" ry="16" fill="white" opacity=".8"/>
+            <!-- 遠山 -->
+            <polygon points="300,140 370,80 440,140" fill="#2d6a4f" opacity=".7"/>
+            <polygon points="340,140 400,95 440,140" fill="#40916c" opacity=".6"/>
+            <!-- 海洋 -->
+            <rect x="0" y="140" width="400" height="80" fill="url(#sea4)"/>
+            <!-- 海浪 -->
+            <path d="M 0,148 Q 50,140 100,148 Q 150,156 200,148 Q 250,140 300,148 Q 350,156 400,148" stroke="rgba(255,255,255,.5)" stroke-width="2.5" fill="none"/>
+            <path d="M 0,160 Q 60,153 120,160 Q 180,167 240,160 Q 300,153 360,160 Q 390,164 400,160" stroke="rgba(255,255,255,.3)" stroke-width="1.5" fill="none"/>
+            <!-- 沙灘 -->
+            <path d="M 0,195 Q 100,185 200,190 Q 300,195 400,188 L 400,260 L 0,260 Z" fill="url(#sand)"/>
+            <!-- 椰子樹 左 -->
+            <line x1="60" y1="260" x2="75" y2="160" stroke="#5d3a1a" stroke-width="6" stroke-linecap="round"/>
+            <ellipse cx="80" cy="155" rx="28" ry="18" fill="#27ae60" transform="rotate(-15,80,155)"/>
+            <ellipse cx="68" cy="148" rx="22" ry="12" fill="#2ecc71" transform="rotate(20,68,148)"/>
+            <ellipse cx="92" cy="150" rx="20" ry="11" fill="#27ae60" transform="rotate(-30,92,150)"/>
+            <!-- 椰子樹 右 -->
+            <line x1="340" y1="260" x2="328" y2="165" stroke="#5d3a1a" stroke-width="6" stroke-linecap="round"/>
+            <ellipse cx="322" cy="160" rx="28" ry="18" fill="#27ae60" transform="rotate(10,322,160)"/>
+            <ellipse cx="310" cy="153" rx="22" ry="12" fill="#2ecc71" transform="rotate(-20,310,153)"/>
+            <ellipse cx="335" cy="152" rx="20" ry="11" fill="#27ae60" transform="rotate(25,335,152)"/>
+            <!-- 太陽 -->
+            <circle cx="350" cy="60" r="30" fill="#ffd166" opacity=".9"/>
+            <circle cx="350" cy="60" r="22" fill="#ffd700"/>
+            <!-- 衝浪者 -->
+            <ellipse cx="200" cy="175" rx="22" ry="5" fill="rgba(255,255,255,.7)"/>
+            <circle cx="200" cy="168" r="5" fill="#e8c49a"/>
+            <line x1="200" y1="173" x2="195" y2="185" stroke="#3d5a80" stroke-width="2.5"/>
+            <line x1="200" y1="173" x2="205" y2="185" stroke="#3d5a80" stroke-width="2.5"/>
+            <!-- 文字 -->
+            <text x="200" y="252" text-anchor="middle" font-family="serif" font-size="14" fill="rgba(90,50,10,.7)" letter-spacing="3">墾丁國家公園</text>
+          </svg>
           <span class="tag">屏東縣</span>
         </div>
         <div class="spot-info">
